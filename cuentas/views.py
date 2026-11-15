@@ -76,7 +76,7 @@ def registro_usuario(request):
 
         
         if rol == 'gremio':
-            return redirect('panel_gremio')
+            return redirect('listar_gremio')
 
         return redirect('panel_turista')
 
