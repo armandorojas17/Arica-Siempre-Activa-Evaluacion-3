@@ -1,0 +1,88 @@
+
+{% extends "AricaSiempreActiva/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Actividades de Arica</h1>
+        <p class="text-muted">
+            Descubre las experiencias y actividades disponibles
+            en Arica y Parinacota.
+        </p>
+    </div>
+
+    <div class="row g-4">
+
+        {% for actividad in actividades %}
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+
+                {% if actividad.imagen %}
+                    <img src="{{ actividad.imagen.url }}"
+                         class="card-img-top"
+                         alt="{{ actividad.titulo }}"
+                         style="height: 220px; object-fit: cover;">
+                {% endif %}
+
+                <div class="card-body p-4">
+
+                    <span class="badge bg-warning text-dark mb-2">
+                        {{ actividad.categoria }}
+                    </span>
+
+                    <h5 class="fw-bold">
+                        {{ actividad.titulo }}
+                    </h5>
+
+                    <p class="text-muted">
+                        {{ actividad.descripcion }}
+                    </p>
+
+                    <p class="mb-2">
+                        <strong>Fecha:</strong>
+                        {{ actividad.fecha|date:"d/m/Y" }}
+                    </p>
+
+                    <p class="mb-2">
+                        <strong>Precio:</strong>
+                        {% if actividad.precio == 0 %}
+                            Gratis
+                        {% else %}
+                            ${{ actividad.precio }}
+                        {% endif %}
+                    </p>
+
+                    {% if actividad.cupo_maximo %}
+                    <p class="mb-0">
+                        <strong>Cupos:</strong>
+                        {{ actividad.cupo_maximo }}
+                    </p>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12 text-center py-5">
+            <h4>No hay actividades disponibles</h4>
+            <p class="text-muted">
+                Pronto encontrarás nuevas experiencias para disfrutar.
+            </p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
