@@ -4,11 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
-pillow = "*"
-django-crispy-forms = "*"
-crispy-bootstrap5 = "*"
-dotenv = "*"
+dotenv = "==0.9.9"
+asgiref = {version = "==3.13.0", markers = "python_version >= \"3.11\""}
+crispy-bootstrap5 = {version = "==2026.9", markers = "python_version >= \"3.10\""}
+django = {version = "==6.1.2", markers = "python_version >= \"3.12\""}
+django-crispy-forms = {version = "==2.7", markers = "python_version >= \"3.10\""}
+pillow = {version = "==13.0.0", markers = "python_version >= \"3.11\""}
+python-dotenv = {version = "==1.2.4", markers = "python_version >= \"3.10\""}
+sqlparse = {version = "==0.6.0", markers = "python_version >= \"3.10\""}
 
 [dev-packages]
 
