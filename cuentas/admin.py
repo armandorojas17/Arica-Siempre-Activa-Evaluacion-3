@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Turista, Administrador, Gremio
+from .models import Turista, Administrador, Gremio, Invitado
 
 
 @admin.register(Turista)
@@ -19,3 +19,7 @@ class GremioAdmin(admin.ModelAdmin):
         'gremio_nombre_empresa',
         'gremio_contacto'
     )
+
+@admin.register(Invitado)
+class InvitadoAdmin(admin.ModelAdmin):
+    list_display = ('usuario',)

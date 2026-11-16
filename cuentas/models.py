@@ -2,6 +2,19 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class Invitado(models.Model):
+    usuario = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        related_name='invitado'
+    )
+
+    def __str__(self):
+        return 'Invitado: {}'.format(self.usuario.username)
+
+
+
 class Turista(models.Model):
     usuario = models.OneToOneField(
         User,
