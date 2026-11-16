@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 
-from .models import Turista, Gremio, Administrador
+from .models import Turista, Gremio, Administrador, Invitado
 
 
 def registro_usuario(request):
@@ -25,7 +25,7 @@ def registro_usuario(request):
             messages.error(request, 'Completa todos los campos obligatorios.')
             return redirect('registro')
 
-        if rol not in ['turista', 'gremio']:
+        if rol not in ['turista', 'gremio', 'invitado']:
             messages.error(request, 'Selecciona un tipo de cuenta válido.')
             return redirect('registro')
 
@@ -59,13 +59,34 @@ def registro_usuario(request):
 
             if rol == 'turista':
                 Turista.objects.create(usuario=usuario)
+
             elif rol == 'gremio':
-                Gremio.objects.create(usuario=usuario)
+                Gremio.objects.create(
+                    usuario=usuario,
+                    gremio_nombre_empresa=request.POST.get(
+                        'nombre_gremio', ''
+                    ).strip(),
+                    gremio_contacto=request.POST.get(
+                        'telefono', ''
+                    ).strip(),
+                    gremio_direccion=request.POST.get(
+                        'direccion', ''
+                    ).strip(),
+                    gremio_sitio_web=request.POST.get(
+                        'sitio_web', ''
+                    ).strip()
+                )
+
+            elif rol == 'invitado':
+                Invitado.objects.create(usuario=usuario)
 
         login(request, usuario)
 
         if rol == 'gremio':
             return redirect('listar_gremio')
+
+        elif rol == 'invitado':
+            return redirect('panel_invitado')
 
         return redirect('panel_turista')
 
@@ -110,6 +131,9 @@ def login_usuario(request):
             if hasattr(usuario, 'turista'):
                 return redirect('panel_turista')
 
+            if hasattr(usuario, 'invitado'):
+                return redirect('panel_invitado')
+
             logout(request)
             messages.error(request, 'La cuenta no tiene un rol válido.')
             return redirect('login')
@@ -131,6 +155,7 @@ def cerrar_sesion(request):
 def panel_moderador(request):
     if not hasattr(request.user, 'administrador'):
         return redirect('/')
+
     return render(request, 'cuentas/panel_moderador.html')
 
 
@@ -138,6 +163,7 @@ def panel_moderador(request):
 def panel_gremio(request):
     if not hasattr(request.user, 'gremio'):
         return redirect('/')
+
     return render(request, 'cuentas/panel_gremio.html')
 
 
@@ -145,4 +171,14 @@ def panel_gremio(request):
 def panel_turista(request):
     if not hasattr(request.user, 'turista'):
         return redirect('/')
+
     return render(request, 'cuentas/panel_turista.html')
+
+
+@login_required
+def panel_invitado(request):
+    if not hasattr(request.user, 'invitado'):
+        return redirect('/')
+
+    return render(request, 'cuentas/panel_invitado.html')
+

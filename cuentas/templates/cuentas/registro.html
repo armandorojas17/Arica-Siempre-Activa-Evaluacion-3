@@ -1,3 +1,4 @@
+
 {% extends 'AricaSiempreActiva/base.html' %}
 {% load static %}
 
@@ -54,6 +55,11 @@
                         <button type="button" class="cuenta-tab"
                                 id="tab-gremio" onclick="cambiarTipo('gremio')">
                             Gremio
+                        </button>
+
+                        <button type="button" class="cuenta-tab"
+                                id="tab-invitado" onclick="cambiarTipo('invitado')">
+                            Invitado
                         </button>
                     </div>
 
@@ -190,15 +196,20 @@
     function cambiarTipo(tipo) {
 
         const esGremio = tipo === 'gremio';
+        const esInvitado = tipo === 'invitado';
 
         document.getElementById('rol').value = tipo;
 
         document.getElementById('tab-turista').classList.toggle(
-            'activo', !esGremio
+            'activo', tipo === 'turista'
         );
 
         document.getElementById('tab-gremio').classList.toggle(
             'activo', esGremio
+        );
+
+        document.getElementById('tab-invitado').classList.toggle(
+            'activo', esInvitado
         );
 
         document.getElementById('datos-gremio').style.display =
@@ -206,11 +217,14 @@
 
         document.getElementById('texto-registro').querySelector('h1').innerHTML =
             esGremio ? 'Suma tu gremio <span>a la región</span>' :
-                       'Únete y vive <span>la región</span>';
+            esInvitado ? 'Explora <span>la región</span>' :
+            'Únete y vive <span>la región</span>';
 
         document.getElementById('texto-registro').querySelector('p').textContent =
             esGremio ?
             'Crea el perfil de tu empresa, publica tus actividades y solicita el sello de confianza.' :
+            esInvitado ?
+            'Crea una cuenta para explorar las actividades y experiencias de Arica.' :
             'Crea tu cuenta para inscribirte en experiencias y tener todas tus reservas en un solo lugar.';
 
         document.getElementById('campos-nombre').style.display =
@@ -225,4 +239,3 @@
 </script>
 
 {% endblock content %}
-```

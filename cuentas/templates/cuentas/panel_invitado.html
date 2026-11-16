@@ -1,0 +1,41 @@
+
+{% extends 'AricaSiempreActiva/base.html' %}
+
+{% block content %}
+
+<section class="cuenta-seccion">
+    <div class="container">
+        <div class="cuenta-card">
+
+            <span class="cuenta-etiqueta">Mi cuenta</span>
+
+            <h1 class="cuenta-titulo">
+                ¡Bienvenido!
+            </h1>
+
+            <p class="cuenta-descripcion">
+                Ya puedes explorar las actividades y experiencias
+                turísticas disponibles en la región de Arica y Parinacota.
+            </p>
+
+            <div class="cuenta-beneficio">
+                <span>✓</span> Explora actividades turísticas
+            </div>
+
+            <div class="cuenta-beneficio">
+                <span>✓</span> Descubre experiencias de la región
+            </div>
+
+            <div class="cuenta-beneficio">
+                <span>✓</span> Conoce las opciones disponibles
+            </div>
+
+            <a href="{% url 'logout' %}" class="btn-cuenta mt-3">
+                Cerrar sesión
+            </a>
+
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
