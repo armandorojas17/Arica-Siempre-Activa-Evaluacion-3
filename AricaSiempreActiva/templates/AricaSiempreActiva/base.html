@@ -46,16 +46,28 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">¿Qué hacer?</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Aventura y Deporte</a></li>
-                            <li><a class="dropdown-item" href="#">Cultura y Carnaval</a></li>
-                            <li><a class="dropdown-item" href="#">Gastronomía y Clima</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Eventos</a></li>
-                        </ul>
-                    </li>
+                    
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button"
+       data-bs-toggle="dropdown" aria-expanded="false">
+        ¿Qué hacer?
+    </a>
+
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Aventura y Deporte</a></li>
+        <li><a class="dropdown-item" href="#">Cultura y Carnaval</a></li>
+        <li><a class="dropdown-item" href="#">Gastronomía y Clima</a></li>
+
+        <li><hr class="dropdown-divider"></li>
+
+        <li>
+            <a class="dropdown-item" href="{% url 'actividades_publicas' %}">
+                Actividades
+            </a>
+        </li>
+    </ul>
+</li>
+
 
                     <li class="nav-item">
                         <a class="nav-link" href="#">Servicios turísticos</a>
@@ -130,6 +142,9 @@
                 <div class="col-12 col-md-4">
                     <h4 class="footer-titulo">CONTENIDO</h4>
                     <a href="{% url 'home' %}">Inicio</a>
+                    <a class="nav-link" href="{% url 'actividades_publicas' %}">
+                            Actividades
+                        </a>
                     <a href="{% url 'quienes_somos' %}">¿Quiénes somos?</a>
                     <a href="#">Biblioteca digital</a>
                     <a href="#">Boletines</a>

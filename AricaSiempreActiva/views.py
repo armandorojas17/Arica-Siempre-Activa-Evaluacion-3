@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect 
 from .models import Evento
 from .forms import SuscriptorForm
+from panel_gremio.models import Actividad
 
 # Create your views here.
 def home(request):
@@ -88,3 +89,14 @@ def quienes_somos(request):
         'grupos': grupos,
         'comite': comite,
     })
+
+
+def actividades_publicas(request):
+
+    actividades = Actividad.objects.all().order_by('fecha')
+
+    return render(
+        request,
+        'AricaSiempreActiva/actividades_publicas.html',
+        {'actividades': actividades}
+    )
