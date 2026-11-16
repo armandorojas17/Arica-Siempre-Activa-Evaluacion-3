@@ -1,11 +1,21 @@
-
 from django.contrib import admin
-from .models import PerfilUsuario
+from .models import Turista, Administrador, Gremio
 
 
-@admin.register(PerfilUsuario)
-class PerfilUsuarioAdmin(admin.ModelAdmin):
+@admin.register(Turista)
+class TuristaAdmin(admin.ModelAdmin):
+    list_display = ('usuario',)
 
-    list_display = ('usuario', 'rol')
-    list_filter = ('rol',)
-    search_fields = ('usuario__username', 'usuario__email')
+
+@admin.register(Administrador)
+class AdministradorAdmin(admin.ModelAdmin):
+    list_display = ('usuario', 'admin_nivel_acceso')
+
+
+@admin.register(Gremio)
+class GremioAdmin(admin.ModelAdmin):
+    list_display = (
+        'usuario',
+        'gremio_nombre_empresa',
+        'gremio_contacto'
+    )

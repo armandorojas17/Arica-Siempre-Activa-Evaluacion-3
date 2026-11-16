@@ -1,30 +1,47 @@
-
 from django.db import models
 from django.contrib.auth.models import User
 
 
-class PerfilUsuario(models.Model):
-
-    ROLES = [
-        ('turista', 'Turista'),
-        ('gremio', 'Gremio'),
-        ('moderador', 'Moderador'),
-    ]
-
+class Turista(models.Model):
     usuario = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
-        related_name='perfil'
-    )
-
-    rol = models.CharField(
-        max_length=20,
-        choices=ROLES,
-        default='turista'
+        primary_key=True,
+        related_name='turista'
     )
 
     def __str__(self):
-        return '{} - {}'.format(
-            self.usuario.username,
-            self.get_rol_display()
-        )
+        return 'Turista: {}'.format(self.usuario.username)
+
+
+class Administrador(models.Model):
+    usuario = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        related_name='administrador'
+    )
+    admin_nivel_acceso = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+        return 'Administrador: {}'.format(self.usuario.username)
+
+
+class Gremio(models.Model):
+    usuario = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        related_name='gremio'
+    )
+    gremio_nombre_empresa = models.CharField(max_length=100, blank=True)
+    gremio_contacto = models.CharField(max_length=100, blank=True)
+    gremio_direccion = models.CharField(max_length=150, blank=True)
+    gremio_sitio_web = models.CharField(max_length=150, blank=True)
+
+    def __str__(self):
+        return 'Gremio: {}'.format(self.usuario.username)
